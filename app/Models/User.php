@@ -26,8 +26,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'phone',
-        'address',
         'password',
     ];
 
@@ -61,4 +59,3 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 }
-?>

@@ -9,6 +9,13 @@ use App\Models\User;
 
 class Homecontroller extends Controller
 {
+
+    public function index()
+    {
+        return view('home.userpage');
+    }   
+ 
+
     public function redirect()
     {
         $usertype = Auth::user() -> usertype;
@@ -23,3 +30,4 @@ class Homecontroller extends Controller
     }
 }
 ?>
+ 
