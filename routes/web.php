@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Homecontroller;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Homecontroller;
+use App\Http\Controllers\Admincontroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +23,7 @@ function(){
 })->name('dashboard');
 
 route::get('/redirect',[Homecontroller::class,'redirect']);
+
+Route::get('/view_Catagory',[Admincontroller::class,'view_catagory']);
+
+Route::post('/add_Catagory',[Admincontroller::class,'add_catagory']);
