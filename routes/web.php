@@ -35,3 +35,17 @@ Route::get('/view_product',[Admincontroller::class,'view_product']);
 Route::poSt('/add_product',[Admincontroller::class,'add_product']);
 
 Route::get('/show_product',[Admincontroller::class,'show_product']);
+
+Route::get('/delete_product/{id}',[Admincontroller::class,'delete_product']);
+
+Route::get('/update_product/{id}',[Admincontroller::class,'update_product']);
+
+Route::post('/add_product_confirm/{id}',[Admincontroller::class,'add_product_confirm']);
+
+Route::get('/product_details/{id}',[Homecontroller::class,'product_details']);
+
+Route::post('/add_cart/{id}',[Homecontroller::class,'add_cart']);
+
+Route::get('/show_cart',[Homecontroller::class,'show_cart']);
+
+Route::get('/remove_cart/{id}',[Homecontroller::class,'remove_cart']);
