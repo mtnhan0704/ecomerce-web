@@ -42,6 +42,22 @@ Route::get('/update_product/{id}',[Admincontroller::class,'update_product']);
 
 Route::post('/add_product_confirm/{id}',[Admincontroller::class,'add_product_confirm']);
 
+Route::get('/order',[Admincontroller::class,'order']);
+
+Route::get('/delivered/{id}',[Admincontroller::class,'delivered']);
+
+Route::get('/print_pdf/{id}',[Admincontroller::class,'print_pdf']);
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/product_details/{id}',[Homecontroller::class,'product_details']);
 
 Route::post('/add_cart/{id}',[Homecontroller::class,'add_cart']);
@@ -49,3 +65,9 @@ Route::post('/add_cart/{id}',[Homecontroller::class,'add_cart']);
 Route::get('/show_cart',[Homecontroller::class,'show_cart']);
 
 Route::get('/remove_cart/{id}',[Homecontroller::class,'remove_cart']);
+
+Route::get('/cash_order',[Homecontroller::class,'cash_order']);
+
+Route::get('/stripe/{totalprice}',[Homecontroller::class,'stripe']);
+
+Route::post('stripe', [Homecontroller::class,'stripePost'])->name('stripe.post');
