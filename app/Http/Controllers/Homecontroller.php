@@ -11,10 +11,10 @@
     use App\Models\Cart;
     use App\Models\Order;
 
-    use Session;
+    use Illuminate\Support\Facades\Session;
     use Stripe;
 
-    require_once('./vendor/autoload.php');
+
 
     class Homecontroller extends Controller
     {

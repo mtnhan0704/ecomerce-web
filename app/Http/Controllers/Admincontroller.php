@@ -9,7 +9,13 @@ use App\Models\Catagory;
 use App\Models\Product;
 
 use App\Models\Order;
- use PDF;
+
+
+
+use App\Notifications\SendEmailNotification;
+
+use Notification;
+use PDF;
 
 class Admincontroller extends Controller
 {
@@ -157,6 +163,40 @@ class Admincontroller extends Controller
         $pdf=PDF::loadView('admin.pdf',compact('order'));
 
         return $pdf->download('order_details.pdf');
+
+    }
+
+    public function send_email($id)
+    {
+
+        $order=order::find($id);
+        return view('admin.email_info',compact('order'));
+    }
+
+    public function send_user_email(Request $request ,$id)
+    {
+
+        $order=order::find($id);
+        $details = [
+            'greeting'=> $request->greeting,
+            'firstline'=> $request->firstline,
+            'body'=> $request->body,
+            'button'=> $request->button,
+            'url'=> $request->url,
+            'lastline'=> $request->lastline,
+
+        ];
+        Notification::send($order,new SendEmailNotification($details));
+
+        return redirect() ->back();
+    }
+
+    public function searchdata(Request $request)
+    {
+        $searchText=$request->search;
+        $order=order::where('name','LIKE',"%$searchText%")->orWhere('phone','LIKE',"%$searchText%")->orWhere('product_title','LIKE',"%$searchText%")->get();
+
+        return view('admin.order',compact('order'));
 
     }
 }

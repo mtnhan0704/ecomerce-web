@@ -22,7 +22,7 @@ function(){
     return view('dashboard');
 })->name('dashboard');
 
-route::get('/redirect',[Homecontroller::class,'redirect']);
+route::get('/redirect',[Homecontroller::class,'redirect'])->middleware('auth','verified');
 
 Route::get('/view_catagory',[Admincontroller::class,'view_catagory']);
 
@@ -48,8 +48,12 @@ Route::get('/delivered/{id}',[Admincontroller::class,'delivered']);
 
 Route::get('/print_pdf/{id}',[Admincontroller::class,'print_pdf']);
 
+Route::get('/send_email/{id}',[Admincontroller::class,'send_email']);
+
+Route::post('/send_user_email/{id}',[Admincontroller::class,'send_user_email']);
 
 
+Route::get('/search',[Admincontroller::class,'searchdata']);
 
 
 
