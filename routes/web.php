@@ -75,3 +75,17 @@ Route::get('/cash_order',[Homecontroller::class,'cash_order']);
 Route::get('/stripe/{totalprice}',[Homecontroller::class,'stripe']);
 
 Route::post('stripe', [Homecontroller::class,'stripePost'])->name('stripe.post');
+
+Route::get('/show_order',[Homecontroller::class,'show_order']);
+
+Route::get('/cancel_order/{id}',[Homecontroller::class,'cancel_order']);
+
+Route::post('/add_comment',[Homecontroller::class,'add_comment']);
+
+Route::post('/add_reply',[Homecontroller::class,'add_reply']);
+
+Route::get('/product_search',[Homecontroller::class,'product_search']);
+
+Route::get('/products',[Homecontroller::class,'products']);
+
+Route::get('/search_product',[Homecontroller::class,'search_product']);

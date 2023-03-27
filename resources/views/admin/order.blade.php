@@ -1,152 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  @include('admin.css')
 
-  <style type="text/css">
-    .title_deg
-    {
-        text-align: center;
-        font-size: 25px;
-        font-weight: bold;
-        padding-bottom: 40px;
-    }
+<head>
+    @include('admin.css')
 
-    .table_deg
-    {
-        border: 2px solid white;
-        width: 90%;
-        margin: auto;
-        padding-top: 50px;
-        text-align: center;
-    }
+    <style type="text/css">
+        .title_deg {
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            padding-bottom: 40px;
+        }
 
-    .th_deg
-    {
-        background-color: skyblue;
-    }
+        .table_deg {
+            border: 2px solid white;
+            width: 90%;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+        }
 
-    .img_size
-    {
-        width: 200px;
-        height: 200px;
-    }
+        .th_deg {
+            background-color: skyblue;
+        }
+
+        .img_size {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
 
 
-  </style>
+</head>
 
-
-  </head>
-  <body>
+<body>
     <div class="container-scroller">
-      <!-- partial:partials/_sidebar.html -->
-     @include('admin.sideber')
-      <!-- partial -->
-      @include('admin.header')
+        <!-- partial:partials/_sidebar.html -->
+        @include('admin.sideber')
+        <!-- partial -->
+        @include('admin.header')
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
+            <div class="content-wrapper">
 
-          <h1 class="title_deg">All Order</h1>
+                <h1 class="title_deg">All Order</h1>
 
-          <div style="padding-left:700px; padding-bottom:30px;">
+                <div style="padding-left:700px; padding-bottom:30px;">
 
-          <form action="{{url('search')}}" method="get">
+                    <form action="{{ url('search') }}" method="get">
 
-            @csrf
+                        @csrf
 
-            <input type="text" name="search" placeholder="Search For Something">
+                        <input type="text" name="search" placeholder="Search For Something">
 
-            <input type="submit" value="Search" class="btn btn-outline-praimary">
+                        <input type="submit" value="Search" class="btn btn-outline-praimary">
 
-          </form>
-
-
-          </div>
-
-          <table class="table_deg">
-
-          <tr class="th_deg">
-            
-          <th style="padding: 10px">Name</th>
-          <th style="padding: 10px">Email</th>
-          <th style="padding: 10px">Address</th>
-          <th style="padding: 10px">Phone</th>
-          <th style="padding: 10px">Product title</th>
-          <th style="padding: 10px">Quantity</th>
-          <th style="padding: 10px">Price</th>
-          <th style="padding: 10px">Payment Status</th>
-          <th style="padding: 10px">Delivery Status</th>
-          <th style="padding: 10px">Image</th>
-          <th style="padding: 10px">Delivered</th>
-          <th style="padding: 10px">Print PDF</th>
-          <th style="padding: 10px">Send Email</th>
-
-          </tr>
-
-          @forelse($order as $order)
-
-          <tr >
-
-          <td>{{$order->name}}</td>
-          <td>{{$order->email}}</td>
-          <td>{{$order->adress}}</td>
-          <td>{{$order->phone}}</td>
-          <td>{{$order->product_title}}</td>
-          <td>{{$order->quantity}}</td>
-          <td>{{$order->price}}</td>
-          <td>{{$order->payment_status}}</td>
-          <td>{{$order->delivery_status}}</td>
-          <td>
-
-          <img class="img_size" src="/product/{{$order->image}}">
-
-          </td>
-
-          <td>
-
-          @if($order->delivery_status=="processing")
-
-          <a href="{{url('delivered',$order->id)}}" onclick="return confirm('Are you sure this product is delivered !!!')" class="btn btn-primary">Delivered</a>
-
-          @else
-          <p>Delivered</p>
-
-          @endif
-
-          </td>
-
-          <td>
-            <a href="{{url('print_pdf',$order->id)}}" class="btn btn-secondary">Print PDF</a>
-          </td>
-
-          <td>
-            <a href="{{url('send_email',$order->id)}}" class="btn btn-info">Send Email</a>
-          </td>
-            
-          </tr>
-
-          @empty
-          <tr>
-            <td colspan="16">
-
-            No Data Found
-
-            </td>
-
-          </tr>
-         
-          @endForelse
+                    </form>
 
 
-          </table>
+                </div>
 
-          </div>
+                <table class="table_deg">
+
+                    <tr class="th_deg">
+
+                        <th style="padding: 10px">Name</th>
+                        <th style="padding: 10px">Email</th>
+                        <th style="padding: 10px">Address</th>
+                        <th style="padding: 10px">Phone</th>
+                        <th style="padding: 10px">Product title</th>
+                        <th style="padding: 10px">Quantity</th>
+                        <th style="padding: 10px">Price</th>
+                        <th style="padding: 10px">Payment Status</th>
+                        <th style="padding: 10px">Delivery Status</th>
+                        <th style="padding: 10px">Image</th>
+                        <th style="padding: 10px">Delivered</th>
+                        <th style="padding: 10px">Print PDF</th>
+                        <th style="padding: 10px">Send Email</th>
+
+                    </tr>
+
+                    @forelse($order as $order)
+                        <tr>
+
+                            <td>{{ $order->name }}</td>
+                            <td>{{ $order->email }}</td>
+                            <td>{{ $order->adress }}</td>
+                            <td>{{ $order->phone }}</td>
+                            <td>{{ $order->product_title }}</td>
+                            <td>{{ $order->quantity }}</td>
+                            <td>{{ $order->price }}</td>
+                            <td>{{ $order->payment_status }}</td>
+                            <td>{{ $order->delivery_status }}</td>
+                            <td>
+
+                                <img class="img_size" src="/product/{{ $order->image }}">
+
+                            </td>
+
+                            <td>
+
+                                @if ($order->delivery_status == 'processing')
+                                    <a href="{{ url('delivered', $order->id) }}"
+                                        onclick="return confirm('Are you sure this product is delivered !!!')"
+                                        class="btn btn-primary">Delivered</a>
+                                @else
+                                    <p>Delivered</p>
+                                @endif
+
+                            </td>
+
+                            <td>
+                                <a href="{{ url('print_pdf', $order->id) }}" class="btn btn-secondary">Print PDF</a>
+                            </td>
+
+                            <td>
+                                <a href="{{ url('send_email', $order->id) }}" class="btn btn-info">Send Email</a>
+                            </td>
+
+                        </tr>
+
+                    @empty
+                        <tr>
+                            <td colspan="16">
+
+                                No Data Found
+
+                            </td>
+
+                        </tr>
+                    @endForelse
+
+
+                </table>
+
+            </div>
         </div>
-         
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    @include('admin.script')
-    <!-- End custom js for this page -->
-  </body>
+
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        @include('admin.script')
+        <!-- End custom js for this page -->
+</body>
+
 </html>

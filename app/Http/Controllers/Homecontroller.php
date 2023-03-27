@@ -1,7 +1,5 @@
 <?php
-
     namespace App\Http\Controllers;
-    
 
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -14,84 +12,98 @@
     use Illuminate\Support\Facades\Session;
     use Stripe;
 
+    use App\Models\Comment;
+    use App\Models\Reply;
+
+    use RealRashid\SweetAlert\Facades\Alert;
+
 
 
     class Homecontroller extends Controller
     {
         public function index()
         {
-            $product=Product::paginate(10);
+            $product=Product::paginate(6);
+            $comment=comment::orderby('id','desc')->get();
+            $reply=reply::all();
 
-            return view('home.userpage',compact('product'));
+            return view('home.userpage',compact('product','comment','reply'));
             
-        }   
-    
-
-        
+        }      
         public function redirect()
         {
             $usertype = Auth::user() -> usertype;
-            
             if($usertype=='1')
             {
-                return view('admin.home');
+                $total_product=product::all()->count();
+                $total_order=order::all()->count();
+                $total_user=user::all()->count();
+                $order=order::all();
+                $total_revenue=0;
+                foreach($order as $order)
+                {
+                    $total_revenue= $total_revenue + $order->price;
+ 
+                }
+                $total_delivered=order::where('delivery_status','=','delivered')->get()->count();
+                $total_processing=order::where('delivery_status','=','processing')->get()->count();
+                return view('admin.home',compact('total_product','total_order','total_user','total_revenue','total_delivered','total_processing'));
             }
             else
             {
-                $product=Product::paginate(10);
-
-            return view('home.userpage',compact('product'));
+                $product=Product::paginate(9);
+                $comment=comment::orderby('id','desc')->get();
+                $reply=reply::all();
+            return view('home.userpage',compact('product','comment','reply'));
             }
         }
-
         public function product_details($id)
         {
             $product=Product::find($id);
             return view('home.product_details',compact('product'));
         }
-
         public function add_cart(Request $request,$id)
         {
             if(Auth::id())
             {
-                $user=(Auth::user());
+                $user=Auth::user();
+                $userid=$user->id;
                 $product=product::find($id);
-                $cart=new cart; 
+                $product_exist_id=cart::where('Product_id','=' ,$id)->where('user_id','=',$userid)->get('id')->first();
 
-                $cart->name=$user->name;
-                $cart->email=$user->email;
-                $cart->phone=$user->phone;
-                $cart->address=$user->address;
-                $cart->user_id=$user->id;
-
-                $cart->Product_title=$product->title;
-
-                if($product->discount_price!=null)
+                if($product_exist_id)
                 {
-                    $cart->price=$product->discount_price * $request->quantity;
-
+                    $cart=cart::find($product_exist_id)->first();
+                    $quantity=$cart->quantity;
+                    $cart->quantity=$quantity + $request->quantity;
+                    $cart->price=$product->price * $cart->quantity;
+                    $cart->save();
+                    Alert::info('Sản phẩm được thêm thành công','Chúng tôi đã thêm sản phẩm vào giỏ hàng');
+                     
+                    return redirect()->back()->with('message','Sản phẩm được thêm thành công'); 
 
                 }
                 else
                 {
-                    $cart->price=$product->price* $request->quantity;
+                    $cart=new cart; 
+                    $cart->name=$user->name;
+                    $cart->email=$user->email;
+                    $cart->phone=$user->phone;
+                    $cart->address=$user->address;
+                    $cart->user_id=$user->id;
+                    $cart->Product_title=$product->title;
+                    $cart->price=$product->price * $request->quantity;
+                    $cart->image=$product->image;
+                    $cart->product_id=$product->id;
+                    $cart->quantity=$request->quantity;
+                    $cart->save();
+                    return redirect()->back()->with('message','Thêm sản phẩm thành công'); 
                 }
-                
-
-                $cart->image=$product->image;
-                $cart->product_id=$product->id;
-                $cart->quantity=$request->quantity;
-                $cart->save();
-
-                return redirect()->back(); 
-
-
             }
             else 
             {
                 return redirect('login');
             }
-
         }
 
         public function show_cart()
@@ -101,9 +113,7 @@
                 $id=Auth::user()->id;
                 $cart=cart::where('user_id','=',$id)->get();
                 return view('home.showcart',compact('cart'));
-
             }
-
             else
             {
                 return view('login'); 
@@ -172,6 +182,109 @@
                 
             return back();
         }
+
+        public function show_order()
+        {
+            if(Auth::id())
+            {
+                $user=Auth::user();
+                $userid=$user->id;
+
+                $order=order::where('user_id','=',$userid)->get();
+
+                return view('home.order',compact('order'));
+            }
+            else
+            {
+                return redirect('login');
+            }
+        }
+
+        public function cancel_order($id)
+        {
+            $order=order::find($id);
+            $order->delivery_status='You cancel the order';
+
+            $order->save(); 
+
+            return redirect()->back();
+        }
+
+        public function add_comment(Request $request)
+        {
+            if(Auth::id())
+            {
+                $comment=new comment;
+
+                $comment->name=Auth::user()->name;
+                $comment->user_id=Auth::user()->id;
+                $comment->comment=$request->comment;
+                $comment->save();
+
+                return redirect()->back();
+
+            }
+            else
+            {
+                return redirect('login');
+            }
+        }
+
+        public function add_reply(Request $request)
+        {
+            if(Auth::id())
+            {
+                $reply=new reply;
+                $reply->name=Auth::user()->name;
+                $reply->user_id=Auth::user()->id;
+                $reply->comment_id=$request->commentId;
+                $reply->reply=$request->reply;
+                $reply->save();
+
+                return redirect()->back(); 
+
+            } 
+            else
+            {
+                return redirect('login');
+            }
+        }
+
+        public function product_search(Request $request)
+        {
+            $comment=comment::orderby('id','desc')->get();
+            $reply=reply::all();
+
+            $search_text=$request->search;
+
+            $product=product::where('title','LIKE',"%$search_text%")->orWhere('catagory','LIKE',"$search_text")->paginate(10);
+
+            return view('home.userpage',compact('product','comment','reply'));
+        }
+
+        public function products()
+        {
+            $product=Product::paginate(10);
+            $comment=comment::orderby('id','desc')->get();
+            $reply=reply::all();
+
+            return view('home.all_product',compact('product','comment','reply'));
+        }
+
+        public function search_product (Request $request)
+        {
+            $comment=comment::orderby('id','desc')->get();
+            $reply=reply::all();
+
+            $search_text=$request->search;
+
+            $product=product::where('title','LIKE',"%$search_text%")->orWhere('catagory','LIKE',"$search_text")->paginate(10);
+
+            return view('home.all_product',compact('product','comment','reply'));
+        }
+
+        
     }
+
 ?>
   
