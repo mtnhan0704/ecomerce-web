@@ -18,13 +18,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('show_cart') }}">Giỏ hàng</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('show_order') }}">Order</a>
-                    </li>
                     @if (Route::has('login'))
                         @auth
                             <li class="nav-item">
                                 <x-app-layout>
+                                    
                                 </x-app-layout>
                             </li>
                         @else

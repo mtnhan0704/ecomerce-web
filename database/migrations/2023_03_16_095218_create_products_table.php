@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('catagory')->niiable();
             $table->string('quantity')->niiable();
             $table->string('price')->niiable();
-            $table->string('discount_price')->niiable();
             $table->timestamps();
         });
     }

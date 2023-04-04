@@ -19,7 +19,7 @@
 
         .center {
             margin: auto;
-            width: 50%;
+            width: 80%;
             text-align: center;
             margin-top: 30px;
             border: 3px solid blue;
@@ -43,17 +43,17 @@
                     </div>
                 @endif
                 <div class="div-center">
-                    <h2 class="h2_font">Add Catagory</h2>
+                    <h2 class="h2_font">Thêm loại sản phẩm</h2>
                     <form action="{{ url('/add_catagory') }}" method="POST">
                         @csrf
-                        <input class="input_color" type="text" name="catagory" placeholder="Write catagory name">
-                        <input type="submit" class="btn btn-primary" name="submit" value="Add Catagory">
+                        <input class="input_color" type="text" name="catagory" placeholder="Nhập loại sản phẩm">
+                        <input type="submit" class="btn btn-success" name="submit" value="Thêm">
                     </form>
                 </div>
                 <table class="center">
                     <tr>
-                        <td>Catagory Name</td>
-                        <td>Action</td>
+                        <td>Loại sản phẩm</td>
+                        <td>Thao tác</td>
                     </tr>
                     @foreach ($data as $data)
                         <tr>

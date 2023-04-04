@@ -43,7 +43,7 @@
         <div class="main-panel">
             <div class="content-wrapper">
 
-                <h1 class="title_deg">All Order</h1>
+                <h1 class="title_deg">Tất cả đơn hàng</h1>
 
                 <div style="padding-left:700px; padding-bottom:30px;">
 
@@ -51,9 +51,9 @@
 
                         @csrf
 
-                        <input type="text" name="search" placeholder="Search For Something">
+                        <input type="text" name="search" placeholder="Nhập sản phầm cần tìm">
 
-                        <input type="submit" value="Search" class="btn btn-outline-praimary">
+                        <input type="submit" value="Tìm kiếm" class="btn btn-outline-praimary">
 
                     </form>
 
@@ -64,17 +64,17 @@
 
                     <tr class="th_deg">
 
-                        <th style="padding: 10px">Name</th>
+                        <th style="padding: 10px">Tên</th>
                         <th style="padding: 10px">Email</th>
-                        <th style="padding: 10px">Address</th>
-                        <th style="padding: 10px">Phone</th>
-                        <th style="padding: 10px">Product title</th>
-                        <th style="padding: 10px">Quantity</th>
-                        <th style="padding: 10px">Price</th>
-                        <th style="padding: 10px">Payment Status</th>
-                        <th style="padding: 10px">Delivery Status</th>
-                        <th style="padding: 10px">Image</th>
-                        <th style="padding: 10px">Delivered</th>
+                        <th style="padding: 10px">Địa chỉ</th>
+                        <th style="padding: 10px">SDT</th>
+                        <th style="padding: 10px">Tên sản phẩm</th>
+                        <th style="padding: 10px">Số lượng</th>
+                        <th style="padding: 10px">Giá</th>
+                        <th style="padding: 10px">Tình trạng thanh toán</th>
+                        <th style="padding: 10px">Hình thức thanh toán</th>
+                        <th style="padding: 10px">Hình ảnh</th>
+                        <th style="padding: 10px">Tình trạng</th>
                         <th style="padding: 10px">Print PDF</th>
                         <th style="padding: 10px">Send Email</th>
 
@@ -102,10 +102,10 @@
 
                                 @if ($order->delivery_status == 'processing')
                                     <a href="{{ url('delivered', $order->id) }}"
-                                        onclick="return confirm('Are you sure this product is delivered !!!')"
-                                        class="btn btn-primary">Delivered</a>
+                                        onclick="return confirm('Bạn có chắc sản phẩm này được giao!!!')"
+                                        class="btn btn-primary">Giao hàng</a>
                                 @else
-                                    <p>Delivered</p>
+                                    <p>Đã giao hàng</p>
                                 @endif
 
                             </td>
@@ -115,7 +115,7 @@
                             </td>
 
                             <td>
-                                <a href="{{ url('send_email', $order->id) }}" class="btn btn-info">Send Email</a>
+                                <a href="{{ url('send_email', $order->id) }}" class="btn btn-info">Gửi mail</a>
                             </td>
 
                         </tr>
@@ -123,9 +123,7 @@
                     @empty
                         <tr>
                             <td colspan="16">
-
                                 No Data Found
-
                             </td>
 
                         </tr>

@@ -69,8 +69,6 @@ class Admincontroller extends Controller
 
         $product->quantity=$request->quantity;
 
-        $product->discount_price=$request->dis_price;
-
         $product->catagory=$request->catagory;
 
         $image=$request->image;
@@ -125,8 +123,6 @@ class Admincontroller extends Controller
     
             $product->quantity=$request->quantity;
     
-            $product->discount_price=$request->dis_price;
-    
             $product->catagory=$request->catagory;
     
             $image=$request->image;
@@ -178,8 +174,8 @@ class Admincontroller extends Controller
 
     public function print_pdf($id)
     { 
-        $order=order::find($id);
-        $pdf=PDF::loadView('admin.pdf',compact('order'));
+        $order = order::find($id);
+        $pdf = PDF::loadView('admin.pdf',compact('order'));
 
         return $pdf->download('order_details.pdf');
 
@@ -217,5 +213,19 @@ class Admincontroller extends Controller
 
         return view('admin.order',compact('order'));
 
+    }
+
+    public function revenueByMonth()
+    {
+        $total_revenue = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $revenue = Order::select(DB::raw('SUM(total) as revenue'))
+                            ->whereRaw('MONTH(created_at) = ?', [$i])
+                            ->first()
+                            ->revenue;
+            $total_revenue[] = $revenue;
+        }
+
+        return view('body', ['total_revenue' => $total_revenue]);
     }
 }

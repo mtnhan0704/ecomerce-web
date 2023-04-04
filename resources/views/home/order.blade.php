@@ -23,16 +23,17 @@
       <style  type="text/css">
         .center
         {
-
             margin: auto;
-            width: 50%;
+            width: 80%;
             padding: 30px;
             text-align: center;
+            display: grid;
         }
 
         table,th,td
         {
             border: 1px solid black;
+            
         }
          
         .th_deg
@@ -57,13 +58,13 @@
          <div class="center">
          <table>
              <tr>
-             <th class="th_deg">Product title</th>
-             <th class="th_deg">Quantity</th>
-             <th class="th_deg">Price</th>
-             <th class="th_deg">Payment Status</th>
-             <th class="th_deg">Delivery Status</th>
-             <th class="th_deg">Image</th>
-             <th class="th_deg">Cancel Order</th>
+             <th class="th_deg">Tên sản phẩm</th>
+             <th class="th_deg">Số lượng</th>
+             <th class="th_deg">Giá</th>
+             <th class="th_deg">Hình thức thanh toán</th>
+             <th class="th_deg">Tình trạng</th>
+             <th class="th_deg">Hình ảnh</th>
+             <th class="th_deg">Hủy đơn</th>
             </tr>
             @foreach($order as $order)
             <tr>

@@ -8,7 +8,7 @@
                   <form action="{{url('product_search')}}" methob="GET">
                      @csrf
                      <input style="width:500px;" type="text" name="search" placeholder="Nhập sản phẩm cần tìm">
-                     <input type="submit" value="search">
+                     <input type="submit" value="Tìm kiếm">
                   </form>
                </div>
             </div>
@@ -24,9 +24,7 @@
                   <div class="box">
                      <div class="option_container">
                         <div class="options">
-                           <a href="{{url('product_details' ,$products->id)}}" class="option1">
-                           Chi tiết sản phẩm
-                           </a>
+                           <a href="{{url('product_details' ,$products->id)}}" class="option1">Chi tiết sản phẩm</a>
                            <form action="{{url('add_cart',$products->id)}}" method="Post">
                               @csrf 
                             <div class="row">
@@ -48,8 +46,8 @@
                         <h5 >
                           {{$products->title}} 
                         </h5 >
-                        <h6 style="color: black">
-                           {{$products->price}} VNĐ
+                        <h6 style="color: black; font-weight: bold;">
+                           {{number_format($products->price)}} VNĐ
                         </h6>                       
                      </div>
                   </div>

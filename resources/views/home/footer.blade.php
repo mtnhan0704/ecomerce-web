@@ -21,25 +21,20 @@
                                 <div class="widget_menu">
                                     <h3>Menu</h3>
                                     <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Services</a></li>
-                                        <li><a href="#">Testimonial</a></li>
-                                        <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">Trang chủ</a></li>
+                                        <li><a href="#">Sản phẩm</a></li>
+                                        <li><a href="#">Chính sách</a></li>
+                                        <li><a href="#">Vê chúng tôi</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="widget_menu">
-                                    <h3>Account</h3>
+                                    <h3>Dịch vụ</h3>
                                     <ul>
-                                        <li><a href="#">Account</a></li>
-                                        <li><a href="#">Checkout</a></li>
-                                        <li><a href="#">Login</a></li>
-                                        <li><a href="#">Register</a></li>
-                                        <li><a href="#">Shopping</a></li>
-                                        <li><a href="#">Widget</a></li>
+                                        <li><a href="#">Chính sách đổi trả</a></li>
+                                        <li><a href="#">Hình thức thanh toán</a></li>
+                                        <li><a href="#">Điều khoản sử dụng</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -47,19 +42,28 @@
                     </div>
                     <div class="col-md-5">
                         <div class="widget_menu">
-                            <h3>Đăng ký nhận tin</h3>
-                            <div class="information_f">
-                                <p>Nhận thêm nhiều khuyến mãi sớm nhất.</p>
-                            </div>
-                            <div class="form_sub">
-                                <form>
-                                    <fieldset>
-                                        <div class="field">
-                                            <input type="email" placeholder="Email của bạn" name="email" />
-                                            <input type="submit" value="Đăng ký" />
-                                        </div>
-                                    </fieldset>
-                                </form>
+                            <h3>Google Map</h3>
+                            <div class="span6">
+                                <div id="map" style="width: 100%; height: 170px"></div>
+                                <script>
+                                    function initMap() {
+                                        var location = {
+                                            lat: 10.7720842,
+                                            lng: 106.6577867
+                                        };
+                                        var map = new google.maps.Map(document
+                                            .getElementById('map'), {
+                                                zoom: 15,
+                                                center: location
+                                            });
+                                        var marker = new google.maps.Marker({
+                                            position: location,
+                                            map: map
+                                        });
+                                    }
+                                </script>
+                                <script async defer
+                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAZPjM4XSmqXd3L5HbCjHKkKIyDjJ43mM&callback=initMap"></script>
                             </div>
                         </div>
                     </div>
@@ -67,4 +71,27 @@
             </div>
         </div>
     </div>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=3346564995654603&autoLogAppEvents=1"
+        nonce="ASDASDASDASDASDASD"></script>
+    <div class="fb-customerchat" attribution=setup_tool page_id="mtnbeauty.site"></div>
+    <script>
+        ! function(s, u, b, i, z) {
+            var o, t, r, y;
+            s[i] || (s._sbzaccid = z, s[i] = function() {
+                s[i].q.push(arguments)
+            }, s[i].q = [], s[i]("setAccount", z), r = ["widget.subiz.net", "storage.googleapis" + (t = ".com"),
+                "app.sbz.workers.dev", i + "a" + (o = function(k, t) {
+                    var n = t <= 6 ? 5 : o(k, t - 1) + o(k, t - 3);
+                    return k !== t ? n : n.toString(32)
+                })(20, 20) + t, i + "b" + o(30, 30) + t, i + "c" + o(40, 40) + t
+            ], (y = function(k) {
+                var t, n;
+                s._subiz_init_2094850928430 || r[k] && (t = u.createElement(b), n = u.getElementsByTagName(b)[
+                        0], t.async = 1, t.src = "https://" + r[k] + "/sbz/app.js?accid=" + z, n.parentNode
+                    .insertBefore(t, n), setTimeout(y, 2e3, k + 1))
+            })(0))
+        }(window, document, "script", "subiz", "acrpwbkowjxrsezlpjde")
+    </script>
 </footer>

@@ -29,7 +29,7 @@
         .center
         {
             margin: auto;
-            width: 50%;
+            width: 80%;
             text-align: center;
             padding: 30px;
         }

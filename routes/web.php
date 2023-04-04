@@ -89,3 +89,5 @@ Route::get('/product_search',[Homecontroller::class,'product_search']);
 Route::get('/products',[Homecontroller::class,'products']);
 
 Route::get('/search_product',[Homecontroller::class,'search_product']);
+
+Route::post('/stripe/{totalprice}', [HomeController::class, 'stripePost']);
