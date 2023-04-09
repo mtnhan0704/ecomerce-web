@@ -28,7 +28,7 @@ class RegistrationTest extends TestCase
     public function test_registration_screen_cannot_be_rendered_if_support_is_disabled(): void
     {
         if (Features::enabled(Features::registration())) {
-            $this->markTestSkipped('Registration support is enabled.');
+            $this->markTestSkipped('Hỗ trợ đăng ký được kích hoạt.');
 
             return;
         }
@@ -41,16 +41,16 @@ class RegistrationTest extends TestCase
     public function test_new_users_can_register(): void
     {
         if (! Features::enabled(Features::registration())) {
-            $this->markTestSkipped('Registration support is not enabled.');
+            $this->markTestSkipped('Hỗ trợ đăng ký không được kích hoạt');
 
             return;
         }
 
         $response = $this->post('/register', [
             'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'email' => 'testuser@gmail.com',
+            'password' => '123123',
+            'password_confirmation' => '123123',
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
         ]);
 
